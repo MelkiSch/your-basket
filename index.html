@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your basket — Local & Seasonal Produce Guide</title>
+  <meta name="description" content="Discover fresh local produce harvested near you week by week. Visual & printable seasonal basket guide by Smissenbroek.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header id="topbar">
+    <div class="brand-wrap" id="btn-home">
+      <div class="brand-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 11 4-7 4 7"/><path d="M19 11 15 4 11 11"/><path d="M2 11h20l-2 10H4L2 11z"/><path d="M12 11v10"/></svg>
+      </div>
+      <div class="brand-text-wrap">
+        <span class="brand-title">Your basket</span>
+        <span class="brand-copy">© Smissenbroek</span>
+      </div>
+    </div>
+
+    <!-- View Mode Switcher Toggle (Visual vs Compact/Printable) -->
+    <div class="view-toggle-wrap">
+      <button class="toggle-btn active" id="btn-view-visual">
+        Visual / Educative
+      </button>
+      <button class="toggle-btn" id="btn-view-compact">
+        Compact / Printable
+      </button>
+    </div>
+
+    <!-- Header Actions -->
+    <div class="topbar-actions">
+      <button class="btn btn-accent" id="btn-open-recipes">
+        Seasonal Recipes
+      </button>
+      <button class="btn btn-primary" id="btn-open-drawer">
+        My Basket <span class="badge-count" id="basket-badge-count">0</span>
+      </button>
+      <button class="btn" id="btn-print-action">
+        Print
+      </button>
+    </div>
+  </header>
+
+  <!-- Controls & Filtering Toolbar -->
+  <section id="controls-bar">
+    <div class="controls-row-top">
+      <!-- Location / Region Selector with Live Geocoding Search -->
+      <div class="location-search-wrap">
+        <div class="location-input-container">
+          <span class="location-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <input type="text" id="location-search-input" placeholder="Search city or region (e.g. Paris, Berlin, New York)..." autocomplete="off" aria-label="Search City or Region">
+          <button class="location-clear-btn" id="btn-clear-location" title="Clear Location Search" style="display: none;">&times;</button>
+          <!-- Live Autocomplete Dropdown -->
+          <div class="location-dropdown" id="location-dropdown-results"></div>
+        </div>
+
+        <!-- Agricultural Zone Direct Selector -->
+        <div class="select-custom" style="width: 220px;">
+          <select id="select-region" aria-label="Select Agricultural Zone">
+            <!-- Populated dynamically from app.js -->
+          </select>
+        </div>
+
+        <button class="btn" id="btn-geolocate" title="Detect My Geolocation">
+          Locate Me
+        </button>
+      </div>
+
+      <!-- 52-Week Harvest Timeline Slider -->
+      <div class="week-slider-container">
+        <div class="week-slider-header">
+          <div class="week-label">
+            <span id="week-display-title">Week 39</span>
+            <span class="week-date-range" id="week-date-range">(Sep 24 – Sep 30)</span>
+          </div>
+          <div class="season-tabs">
+            <button class="season-btn" data-week="14">Spring</button>
+            <button class="season-btn" data-week="26">Summer</button>
+            <button class="season-btn active" data-week="39">Autumn</button>
+            <button class="season-btn" data-week="48">Winter</button>
+            <button class="btn btn-icon-only" id="btn-current-week" title="Jump to Current Week" style="padding: 2px 8px; font-size: 11px;">
+              This Week
+            </button>
+          </div>
+        </div>
+        <div class="week-slider-controls">
+          <span style="font-size: 11px; color: var(--muted); font-weight: 600;">W1</span>
+          <input type="range" id="week-range-slider" min="1" max="52" value="39" step="1" aria-label="Week of Year Slider">
+          <span style="font-size: 11px; color: var(--muted); font-weight: 600;">W52</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Chips & Search Input -->
+    <div class="controls-row-bottom">
+      <div class="category-chips" id="category-chips">
+        <!-- Category chips rendered dynamically -->
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </span>
+        <input type="text" id="search-input" placeholder="Search produce, pairings, nutrition..." aria-label="Search Produce">
+      </div>
+    </div>
+  </section>
+
+  <!-- Summary Banner -->
+  <div class="basket-summary-banner">
+    <div class="summary-info">
+      <div class="summary-stat">
+        <span id="banner-region-name">Western Europe</span>
+      </div>
+      <div class="summary-stat">
+        <span id="banner-week-name">Week 39</span>
+      </div>
+      <div class="summary-stat">
+        <span id="banner-count">28 items available local</span>
+      </div>
+    </div>
+    <div style="font-weight: 500; opacity: 0.9;">
+      Local harvest carbon savings: <b>-2.8 kg CO2e / kg</b> vs imported
+    </div>
+  </div>
+
+  <!-- Print Only Header -->
+  <div class="print-only-header">
+    <h1>Your basket</h1>
+    <div style="font-size: 12pt; color: #555;">
+      Seasonal Local Produce Checklist • Copyright © Smissenbroek
+    </div>
+    <div style="margin-top: 8px; font-size: 10pt;" id="print-header-meta">
+      Region: Western Europe | Week: 39 | Date generated: Sep 2026
+    </div>
+  </div>
+
+  <!-- Main View Container -->
+  <main id="app-content">
+    <!-- Visual / Educative View Container -->
+    <div id="visual-view-container" class="produce-grid">
+      <!-- Produce cards rendered dynamically -->
+    </div>
+
+    <!-- Compact / Printable Table View Container -->
+    <div id="compact-view-container" class="compact-view-wrap" style="display: none;">
+      <div class="printable-header-banner">
+        <div class="printable-title-group">
+          <h2>Your basket — Seasonal Selection</h2>
+          <div class="printable-meta" id="compact-printable-meta">
+            Showing local produce available during Week 39 (Autumn Harvest)
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-primary" id="btn-compact-print">
+            Print / Save PDF
+          </button>
+        </div>
+      </div>
+      <div id="compact-table-body-wrap">
+        <!-- Category grouped tables rendered dynamically -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Educational Produce Detail Modal -->
+  <div class="modal-overlay" id="modal-detail-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title">Produce Detail</h3>
+        <button class="modal-close-btn" id="btn-close-detail">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-detail-content">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Recipes Modal -->
+  <div class="modal-overlay" id="modal-recipes-overlay">
+    <div class="modal-card" style="max-width: 720px;">
+      <div class="modal-header">
+        <h3>Seasonal Recipe Suggestions</h3>
+        <button class="modal-close-btn" id="btn-close-recipes">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-recipes-content">
+        <!-- Recipes rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- My Basket Slide-Out Drawer -->
+  <div class="drawer-overlay" id="drawer-overlay">
+    <div class="drawer-panel">
+      <div class="drawer-header">
+        <h3>My Weekly Basket</h3>
+        <button class="modal-close-btn" id="btn-close-drawer">&times;</button>
+      </div>
+      <div class="drawer-content" id="drawer-basket-items">
+        <!-- Basket items list rendered dynamically -->
+      </div>
+      <div class="basket-footer">
+        <div style="display: flex; justify-content: space-between; font-weight: 600;">
+          <span>Total Selected Items:</span>
+          <span id="drawer-total-count">0</span>
+        </div>
+        <div style="font-size: 12px; color: var(--accent); background: var(--accent-bg); padding: 8px 12px; border-radius: var(--radius-md);">
+          Estimated local seasonal carbon savings: <b id="drawer-carbon-saving">0.0 kg CO2e</b>
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 6px;">
+          <button class="btn btn-primary" id="btn-drawer-print" style="flex: 1;">
+            Print Basket List
+          </button>
+          <button class="btn" id="btn-drawer-clear" style="color: #c0392b;">
+            Clear All
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer id="app-footer">
+    <p><b>Your basket</b> • Local Produce & Seasonality Guide</p>
+    <p style="margin-top: 4px; color: var(--muted);">Copyright © Smissenbroek. All rights reserved.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
