@@ -1,7 +1,6 @@
 # Your basket — Seasonal Local Produce Harvesting App
 
 > **Copyright © Smissenbroek. All rights reserved.**  
-> UX/UI Design Inspiration: [Mixborder.com](https://mixborder.com/)
 
 **Your basket** is a responsive, highly visual web application that helps users discover and generate a custom basket of locally grown fruits, vegetables, herbs, and nuts based on their geographical location and week of the year.
 
@@ -9,7 +8,7 @@
 
 ## 🌟 Key Features
 
-- **Mixborder.com Aesthetic & Typography**: Clean organic palette (`#fcfbf6`, `#2c5530`), *DM Sans* UI font, and *Georgia italic* serif produce titles.
+- **Aesthetic & Typography**: Clean organic palette (`#fcfbf6`, `#2c5530`), *DM Sans* UI font, and *Georgia italic* serif produce titles.
 - **Geographic Geocoding Search Bar**: Search any city globally (*Paris*, *Berlin*, *New York*, *London*, *Rome*, *Tokyo*, etc.) using an instant 0ms city database + OpenStreetMap Nominatim API.
 - **52-Week Harvest Seasonality Engine**: Drag across all 52 weeks of the year with real-time date range calculations and quick season buttons (Spring, Summer, Autumn, Winter).
 - **Dual Basket View Modes**:
