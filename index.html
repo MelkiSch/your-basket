@@ -33,6 +33,9 @@
 
     <!-- Header Actions -->
     <div class="topbar-actions">
+      <button class="btn" id="btn-open-contribute">
+        How to Contribute
+      </button>
       <button class="btn btn-accent" id="btn-open-recipes">
         Seasonal Recipes
       </button>
@@ -191,6 +194,114 @@
       </div>
       <div class="modal-body" id="modal-recipes-content">
         <!-- Recipes rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- How to Contribute Modal -->
+  <div class="modal-overlay" id="modal-contribute-overlay">
+    <div class="modal-card" style="max-width: 780px;">
+      <div class="modal-header">
+        <h3>How to Contribute to Your Basket</h3>
+        <button class="modal-close-btn" id="btn-close-contribute">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-contribute-content">
+        <div class="contribute-intro">
+          <p>Help us build the most comprehensive, open seasonal produce database! You can contribute new <b>vegetables, fruits, herbs, nuts, and roots</b>, refine regional seasonality calendars, or submit high-quality photography.</p>
+        </div>
+
+        <div class="contribute-steps">
+          <h4>Steps to Contribute</h4>
+          <ol class="contribute-list">
+            <li><b>Fork or clone the repository</b> on GitHub: <a href="https://github.com/MelkiSch/your-basket" target="_blank" rel="noopener">https://github.com/MelkiSch/your-basket</a></li>
+            <li><b>Gather produce data</b>: You will need to specify geographic regions, botanical Latin name, 52-week harvest/peak timeline, nutritional facts, storage tips, culinary pairings, and a high-resolution public photo.</li>
+            <li><b>Add your produce entry</b> to <code>app.js</code> / <code>dataset.js</code> using the JSON format below.</li>
+            <li><b>Submit a Pull Request</b> or open an issue on GitHub with your data!</li>
+          </ol>
+        </div>
+
+        <div class="contribute-builder">
+          <h4>Interactive JSON Generator</h4>
+          <p style="font-size: 13px; color: var(--muted); margin-bottom: 12px;">Use this helper to generate a valid produce entry ready to copy and paste into GitHub.</p>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="contrib-id">Item ID (slug)</label>
+              <input type="text" id="contrib-id" placeholder="e.g. salsify-black">
+            </div>
+            <div class="form-group">
+              <label for="contrib-name">Produce Name</label>
+              <input type="text" id="contrib-name" placeholder="e.g. Black Salsify">
+            </div>
+            <div class="form-group">
+              <label for="contrib-latin">Latin / Botanical Name</label>
+              <input type="text" id="contrib-latin" placeholder="e.g. Scorzonera hispanica">
+            </div>
+            <div class="form-group">
+              <label for="contrib-category">Category</label>
+              <select id="contrib-category">
+                <option value="vegetable">Vegetable</option>
+                <option value="fruit">Fruit</option>
+                <option value="herb">Herb & Edible</option>
+                <option value="nut">Nut & Root</option>
+              </select>
+            </div>
+            <div class="form-group" style="grid-column: span 2;">
+              <label for="contrib-image">Photo URL (High-res Unsplash / Wikimedia Public Domain)</label>
+              <input type="url" id="contrib-image" placeholder="https://images.unsplash.com/photo-...">
+            </div>
+            <div class="form-group" style="grid-column: span 2;">
+              <label>Geographic Regions</label>
+              <div class="checkbox-group" id="contrib-regions">
+                <label><input type="checkbox" value="we_eu" checked> Western Europe</label>
+                <label><input type="checkbox" value="med_eu"> Mediterranean</label>
+                <label><input type="checkbox" value="uk_ie"> UK & Ireland</label>
+                <label><input type="checkbox" value="nordic"> Nordics</label>
+                <label><input type="checkbox" value="us_ne"> US Northeast</label>
+                <label><input type="checkbox" value="us_wc"> US West Coast</label>
+                <label><input type="checkbox" value="us_ca"> US Sunbelt</label>
+                <label><input type="checkbox" value="ee_eu"> Eastern Europe</label>
+                <label><input type="checkbox" value="asia_east"> East Asia</label>
+                <label><input type="checkbox" value="oceania"> Oceania</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="contrib-harvest">Harvest Weeks (e.g. 10-25 or 10,11,12...)</label>
+              <input type="text" id="contrib-harvest" placeholder="e.g. 40-52, 1-12">
+            </div>
+            <div class="form-group">
+              <label for="contrib-peak">Peak Weeks (e.g. 44-50)</label>
+              <input type="text" id="contrib-peak" placeholder="e.g. 44-50">
+            </div>
+            <div class="form-group" style="grid-column: span 2;">
+              <label for="contrib-nutrition">Nutritional Highlights</label>
+              <input type="text" id="contrib-nutrition" placeholder="High in Inulin, Potassium, and Vitamin B6.">
+            </div>
+            <div class="form-group" style="grid-column: span 2;">
+              <label for="contrib-storage">Storage Tip</label>
+              <input type="text" id="contrib-storage" placeholder="Store unwashed roots in cold moist sand or crisper drawer for up to 2 months.">
+            </div>
+            <div class="form-group" style="grid-column: span 2;">
+              <label for="contrib-pairs">Culinary Pairings (comma separated)</label>
+              <input type="text" id="contrib-pairs" placeholder="Butter, Cream, Parsley, White Wine, Lemon">
+            </div>
+          </div>
+
+          <div style="margin-top: 14px; display: flex; justify-content: space-between; align-items: center;">
+            <button class="btn btn-primary" id="btn-generate-json">Generate JSON Entry</button>
+            <button class="btn" id="btn-copy-json" style="display: none;">Copy JSON to Clipboard</button>
+          </div>
+
+          <div style="margin-top: 12px; display: none;" id="json-output-wrap">
+            <pre class="json-code-box" id="json-output-code"></pre>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; text-align: center;">
+          <a href="https://github.com/MelkiSch/your-basket" target="_blank" rel="noopener" class="btn btn-accent" style="display: inline-block; padding: 10px 20px;">
+            Open GitHub Repository & Submit Issue / PR &rarr;
+          </a>
+        </div>
       </div>
     </div>
   </div>
