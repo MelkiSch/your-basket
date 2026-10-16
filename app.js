@@ -80,8 +80,23 @@ const CATEGORIES = [
   { id: 'nut', name: 'Nuts & Roots' }
 ];
 
-// Fallback high-res produce image
-const FALLBACK_PRODUCE_IMG = 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=600&q=80';
+// Placeholder shown when the USDA Pomological Watercolor Collection has no image for an item
+const FALLBACK_PRODUCE_IMG = 'placeholder.svg';
+
+// USDA Pomological Watercolor Collection (National Agricultural Library, public domain)
+// https://search.nal.usda.gov/discovery/collectionDiscovery?vid=01NAL_INST:MAIN&collectionId=81279629860007426
+// Served from the Wikimedia Commons mirror ("USDA Pomological Watercolors").
+// The collection covers fruits & nuts only; anything not listed here gets the placeholder.
+const POM_BASE = 'https://upload.wikimedia.org/wikipedia/commons/thumb/';
+const pom = (path, file) => `${POM_BASE}${path}/${file}/960px-${file}`;
+const POMOLOGICAL_IMAGES = {
+  'quince': pom('0/0b', 'Pomological_Watercolor_POM00001288.jpg'),
+  'persimmon': pom('c/ce', 'Pomological_Watercolor_POM00003827.jpg'),
+  'sweet-chestnut': pom('f/fc', 'Pomological_Watercolor_POM00000125.jpg'),
+  'fig-fresh': pom('4/41', 'Pomological_Watercolor_POM00007440.jpg'),
+  'strawberry': pom('7/71', 'Pomological_Watercolor_POM00004399.jpg'),
+  'walnut': pom('f/f9', 'Pomological_Watercolor_POM00007478.jpg')
+};
 
 const PRODUCE_DATA = [
   {
@@ -391,6 +406,11 @@ const PRODUCE_DATA = [
     prepTips: 'Toast gently in dry skillet for 3-5 minutes to accentuate buttery aroma.'
   }
 ];
+
+// Apply dataset images; fall back to the placeholder where the collection is incomplete
+PRODUCE_DATA.forEach(item => {
+  item.image = POMOLOGICAL_IMAGES[item.id] || FALLBACK_PRODUCE_IMG;
+});
 
 // --- APP STATE persistent in localStorage ---
 const STORAGE_KEY = 'your_basket_saved_items_v2';

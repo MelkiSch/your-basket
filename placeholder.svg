@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="No illustration available">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4efe4"/>
+      <stop offset="1" stop-color="#e6dcc8"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)"/>
+  <rect x="24" y="24" width="552" height="552" fill="none" stroke="#b9a988" stroke-width="2" stroke-dasharray="6 8"/>
+  <g fill="none" stroke="#8a7a5a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75">
+    <path d="M300 200 C 300 170, 315 150, 335 140"/>
+    <path d="M305 175 C 340 150, 380 160, 395 185 C 360 200, 330 195, 305 175 Z" fill="#c9bb98"/>
+    <path d="M300 205 C 240 195, 200 240, 205 300 C 210 370, 260 410, 300 400 C 340 410, 390 370, 395 300 C 400 240, 360 195, 300 205 Z"/>
+  </g>
+  <text x="300" y="480" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#7a6a4a">No illustration available</text>
+</svg>
